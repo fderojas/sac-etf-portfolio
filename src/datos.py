@@ -15,6 +15,20 @@ def cargar_datos():
     df = df.dropna()
     return df
 
+def construir_variables(df):
+    """Devuelve las variables que verá el agente, todas estacionarias."""
+    X = df.copy()
+
+    for etf in ETFS:
+        # Distancia del precio a su media móvil de 20 días (ejemplo hecho):
+        X[f"{etf}_dist_sma_20"] = X[etf] / X[f"{etf}_sma_20"] - 1
+        # Distancia del precio a su media móvil de 50 días (ejemplo hecho):
+        X[f"{etf}_dist_sma_50"] = X[etf] / X[f"{etf}_sma_50"] - 1
+
+    medias = [f"{etf}_sma_{v}" for etf in ETFS for v in (20, 50)]
+    X = X.drop(columns=ETFS + medias + ["VIX_y", "FED_RATE_y"])
+    return X
+
 
 def dividir(df):
     train_data = df.loc[:'2019-12-31'].copy()
@@ -36,8 +50,8 @@ def escalar(train, test, holdout):
 
 if __name__ == "__main__":
     df = cargar_datos()
-    train, test, holdout = dividir(df)
+    X = construir_variables(df)
+    train, test, holdout = dividir(X)
     train_esc, test_esc, holdout_esc, _ = escalar(train, test, holdout)
-    print(df.shape)                          # debería tener 40 columnas, no 41
-    print(train_esc.abs().max().max())       # ya no debería salir 5237
-    print(holdout_esc[["SPY", "QQQ"]].describe())
+    print(X.shape)
+    print(holdout_esc.describe().loc[["min", "max"]].T)
