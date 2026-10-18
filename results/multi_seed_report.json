@@ -1,0 +1,82 @@
+{
+  "summary": {
+    "n_seeds": 3,
+    "seeds_used": [
+      42,
+      123,
+      456
+    ],
+    "phases_tested": [
+      "3A",
+      "3C"
+    ]
+  },
+  "main_results": {
+    "3A_holdout_sharpe": {
+      "mean": 0.07173845396110279,
+      "std": 6.851891381457842e-05,
+      "min": 0.07164401524808124,
+      "max": 0.07180446851480911,
+      "all_values": [
+        0.07180446851480911,
+        0.07164401524808124,
+        0.07176687812041803
+      ]
+    },
+    "3C_holdout_sharpe": {
+      "mean": 0.07197621182326135,
+      "std": 0.0004315616502344429,
+      "min": 0.07165940650606889,
+      "max": 0.07258638209930991,
+      "all_values": [
+        0.07258638209930991,
+        0.07165940650606889,
+        0.07168284686440526
+      ]
+    }
+  },
+  "consistency": {
+    "3A": {
+      "sharpe_mean": 0.07173845396110279,
+      "sharpe_std": 6.851891381457842e-05,
+      "coefficient_variation": 0.0009551211384027033,
+      "all_sharpes": [
+        0.07180446851480911,
+        0.07164401524808124,
+        0.07176687812041803
+      ],
+      "n_seeds": 3,
+      "consistency_level": "Muy alta"
+    },
+    "3C": {
+      "sharpe_mean": 0.07197621182326135,
+      "sharpe_std": 0.0004315616502344429,
+      "coefficient_variation": 0.005995892799889898,
+      "all_sharpes": [
+        0.07258638209930991,
+        0.07165940650606889,
+        0.07168284686440526
+      ],
+      "n_seeds": 3,
+      "consistency_level": "Muy alta"
+    }
+  },
+  "statistical_comparison": {
+    "sharpe_3a_mean": 0.07173845396110279,
+    "sharpe_3c_mean": 0.07197621182326135,
+    "difference": -0.000237757862158558,
+    "t_statistic": -0.869037861463428,
+    "t_pvalue": 0.4764477620243325,
+    "wilcoxon_statistic": 2.0,
+    "wilcoxon_pvalue": 0.75,
+    "cohens_d": -0.7694866422237191,
+    "significant_at_05": false,
+    "significant_at_01": false
+  },
+  "conclusion": {
+    "winner": "No difference",
+    "reasoning": "No hay diferencia estad\u00edsticamente significativa entre 3A y 3C",
+    "implication": "Ambas estrategias convergen al equal-weight como \u00f3ptimo",
+    "recommendation": "Usar 3A por simplicidad (principio de parsimonia)"
+  }
+}

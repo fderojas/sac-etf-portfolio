@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+
+# Artefactos de entrenamiento (pesados, se regeneran)
+checkpoints*/
+logs_tensorboard*/
+tensorboard_sac*/
+*.pkl
+*.zip
+!models/final/*.zip
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
