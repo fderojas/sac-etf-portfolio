@@ -19,3 +19,5 @@ tensorboard_sac*/
 Thumbs.db
 desktop.ini
 .vscode/
+
+!models/corregido/*.zip
