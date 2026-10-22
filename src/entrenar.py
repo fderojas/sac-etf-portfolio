@@ -3,20 +3,20 @@ from pathlib import Path
 from stable_baselines3 import SAC
 from datos import cargar_datos, construir_variables, dividir, escalar, ETFS
 from entorno import EntornoCartera
+from config import COSTE, SEMILLA, PASOS, nombre_modelo
 
 RAIZ = Path(__file__).resolve().parents[1]
 CARPETA_MODELOS = RAIZ / "models" / "corregido"
-PASOS = 50_000      # unos 10-15 minutos en CPU
-SEMILLA = 42
 
 
 def main():
     # Datos: mismo proceso que en entorno.py
     df = cargar_datos()
     X = construir_variables(df)
+    
     train, test, holdout = dividir(X)
     train_esc, _, _, _ = escalar(train, test, holdout)
-    env = EntornoCartera(train_esc, df.loc[train_esc.index, ETFS])
+    env = EntornoCartera(train_esc, df.loc[train_esc.index, ETFS], coste = COSTE)
 
     modelo = SAC(
         "MlpPolicy",
@@ -32,7 +32,7 @@ def main():
     modelo.learn(total_timesteps=PASOS)
 
     CARPETA_MODELOS.mkdir(parents=True, exist_ok=True)
-    modelo.save(CARPETA_MODELOS / f"sac_seed_{SEMILLA}")
+    modelo.save(CARPETA_MODELOS / nombre_modelo())
     print("Modelo guardado en", CARPETA_MODELOS)
 
 
